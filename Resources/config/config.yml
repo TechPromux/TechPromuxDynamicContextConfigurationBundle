@@ -1,0 +1,11 @@
+imports:
+    - { resource: 'parameters.yml'}
+    - { resource: 'security.yml'}
+
+sonata_admin:
+    dashboard:
+        groups:
+            techpromux_dynamic_configuration_admin:
+                items:
+                    - techpromux_dynamic_context_configuration.admin.context_variable
+

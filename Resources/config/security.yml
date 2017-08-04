@@ -1,0 +1,26 @@
+security:
+    role_hierarchy:
+        
+        # sonata roles
+        
+        #ROLE_TECHPROMMUX_variable__CUSTOM_variable_ADMIN:
+
+        #    - ROLE_DASHBOARD_USER
+        #    - ROLE_TECHPROMUX_variable_ADMIN_CUSTOM_variable_LIST
+        #    #- ROLE_TECH_PROMUX_variable_ADMIN_CUSTOM_variable_VIEW
+        #    - ROLE_TECHPROMUX_variable_ADMIN_CUSTOM_variable_CREATE
+        #    - ROLE_TECHPROMUX_variable_ADMIN_CUSTOM_variable_EDIT
+        #    - ROLE_TECHPROMUX_variable_ADMIN_CUSTOM_variable_DELETE
+            #- ROLE_TECH_PROMUX_variable_ADMIN_CUSTOM_variable_EXPORT
+        
+        #ROLE_TECHPROMUX_variable__OWNER_variable_ADMIN:
+
+        #    - ROLE_DASHBOARD_USER
+        #    - ROLE_TECHPROMUX_variable_ADMIN_OWNER_variable_LIST
+            #- ROLE_TECH_PROMUX_variable_ADMIN_OWNER_variable_VIEW
+            #- ROLE_TECH_PROMUX_variable_ADMIN_OWNER_variable_CREATE
+        #    - ROLE_TECHPROMUX_variable_ADMIN_OWNER_variable_EDIT
+            #- ROLE_TECH_PROMUX_variable_ADMIN_OWNER_variable_DELETE
+            #- ROLE_TECH_PROMUX_variable_ADMIN_OWNER_variable_EXPORT
+
+        

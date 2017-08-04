@@ -1,0 +1,78 @@
+{% extends "TechPromuxBaseBundle:Admin:Resource/edit.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        div.checkbox span.control-label__text {
+            margin-left: 5px;
+        }
+
+        div.radio span.control-label__text {
+            margin-left: 5px;
+        }
+    </style>
+{% endblock stylesheets %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function init_inner_items_{{ form.vars.id }}(container) {
+
+            var labels = $(container).find('label[data-ctype-modify="parent"]');
+            for (var i = 0; i < labels.length; i++) {
+                $(labels[i]).parent().addClass($(labels[i]).attr('data-ctype-modify-parent-addclass'));
+            }
+
+            $('#sonata-ba-field-container-{{ form.vars.id }}_customValue input.date-picker').parent().datetimepicker({
+                useSeconds: true,
+                pickDate: true,
+                pickTime: false,
+                format: 'YYYY-MM-DD'
+            });
+
+            $('#sonata-ba-field-container-{{ form.vars.id }}_customValue input.datetime-picker').parent().datetimepicker({
+                useSeconds: true,
+                pickDate: true,
+                pickTime: true,
+                format: 'YYYY-MM-DD HH:mm:ss'
+            });
+
+            $('#sonata-ba-field-container-{{ form.vars.id }}_customValue input.time-picker').parent().find('span.input-group-addon').datetimepicker({
+                useSeconds: true,
+                pickDate: false,
+                pickTime: true,
+                format: 'HH:mm:ss'
+            });
+
+        }
+
+        $(document).on('sonata-collection-item-added', '#sonata-ba-field-container-{{ form.vars.id }}_customValue', function () {
+            init_inner_items_{{ form.vars.id }}(this);
+
+            $('#sonata-ba-field-container-{{ form.vars.id }}_customValue input.color-picker:last').parent().addClass('input-group colorpicker-component').append('<span class="input-group-addon" style="background-color: #eee;"><i></i></span>').colorpicker({format: 'rgb'});
+            $('#sonata-ba-field-container-{{ form.vars.id }}_customValue input.color-picker-rgb:last').parent().addClass('input-group colorpicker-component').append('<span class="input-group-addon" style="background-color: #eee;"><i></i></span>').colorpicker({format: 'rgb'});
+            $('#sonata-ba-field-container-{{ form.vars.id }}_customValue input.color-picker-rgba:last').parent().addClass('input-group colorpicker-component').append('<span class="input-group-addon" style="background-color: #eee;"><i></i></span>').colorpicker({format: 'rgba'});
+
+        });
+
+
+        $(document).ready(function () {
+
+            //$('textarea.wysihtml5').wysihtml5();
+
+            $('textarea.wysihtml5').wysihtml5();
+
+            $('ul.wysihtml5-toolbar li a[data-wysihtml5-command="insertImage"],ul.wysihtml5-toolbar li a[data-wysihtml5-command="createLink"]').parent().hide();
+
+            $('#{{ form.vars.id }}_customValue').addClass('row').css({'margin-left': '0px', 'margin-right': '0px'});
+
+            //$('#sonata-ba-field-container-{{ form.vars.id }}_customValue img.media-object').parent().parent().removeClass('col-lg-9').addClass('col-lg-12');
+
+            $('#sonata-ba-field-container-{{ form.vars.id }}_customValue input.color-picker').parent().addClass('input-group colorpicker-component').append('<span class="input-group-addon" style="background-color: #eee;"><i></i></span>').colorpicker({format: 'rgb'});
+            $('#sonata-ba-field-container-{{ form.vars.id }}_customValue input.color-picker-rgb').parent().addClass('input-group colorpicker-component').append('<span class="input-group-addon" style="background-color: #eee;"><i></i></span>').colorpicker({format: 'rgb'});
+            $('#sonata-ba-field-container-{{ form.vars.id }}_customValue input.color-picker-rgba').parent().addClass('input-group colorpicker-component').append('<span class="input-group-addon" style="background-color: #eee;"><i></i></span>').colorpicker({format: 'rgba'});
+
+            init_inner_items_{{ form.vars.id }}($('#sonata-ba-field-container-{{ form.vars.id }}_customValue'));
+        });
+    </script>
+{% endblock javascripts %}

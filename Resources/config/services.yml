@@ -1,0 +1,9 @@
+imports:
+    - { resource: 'services_managers.yml'}
+    - { resource: 'services_admins.yml'}
+
+services:
+
+#    tech_promux_variable.example:
+#        class:  TechPromux\DynamicDynamicConfigurationBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

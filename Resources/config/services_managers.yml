@@ -1,0 +1,14 @@
+services:
+   # Manager Services
+
+    techpromux_dynamic_context_configuration.manager.context_variable:
+        class:  TechPromux\DynamicContextConfigurationBundle\Manager\ContextVariableManager
+        arguments: [~]
+        tags:
+            - { name: techpromux.manager}
+            - { name: techpromux.resource_manager}
+        calls:
+            #- [ setServiceContainer,['@service_container']]
+            - [ setResourceContextManager,['@techpromux.manager.default_resource_context']]
+            - [ setDynamicVariableManager,['@techpromux_dynamic_configuration.manager.dynamic_variable']]
+            - [ setUtilDynamicConfigurationManager, ['@techpromux_dynamic_configuration.manager.util_dynamic_configuration']]

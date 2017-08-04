@@ -1,0 +1,15 @@
+services:
+#    tech_promux_variable.example:
+#        class:  TechPromux\DynamicDynamicConfigurationBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    # Admin Services
+
+    techpromux_dynamic_context_configuration.admin.context_variable:
+        class:  TechPromux\DynamicContextConfigurationBundle\Admin\ContextVariableAdmin
+        arguments: [~,  TechPromux\DynamicContextConfigurationBundle\Entity\ContextVariable, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: techpromux_dynamic_configuration_admin, label: 'Context Variables', show_in_dashboard: true}
+        calls:
+            - [ setTranslationDomain,['TechPromuxDynamicConfigurationBundle']]
+            - [ setResourceManager,['@techpromux_dynamic_context_configuration.manager.context_variable']]
