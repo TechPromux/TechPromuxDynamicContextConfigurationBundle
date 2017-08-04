@@ -1,4 +1,4 @@
-# TechPromux Dynamic Context Configuration Bundle: for dynamic system variables
+# TechPromux Dynamic Configuration Bundle: for dynamic system variables
 
 This project is a symfony based bundle with possibility to manage multiple dynamic system variables.
 
@@ -14,7 +14,7 @@ We hope that this project contribute to your work with Symfony.
 
 Open a console in root project folder and execute following command:
 
-    composer install techpromux/dynamic-configuration-bundle
+    composer install techpromux/dynamic-context-configuration-bundle
 
 # Configuration
 

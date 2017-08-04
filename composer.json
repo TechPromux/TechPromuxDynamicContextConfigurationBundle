@@ -1,7 +1,7 @@
 {
     "name": "techpromux/dynamic-context-configuration-bundle",
     "type": "symfony-bundle",
-    "description": "Manage Dynamic Configuration Variables",
+    "description": "Manage Dynamic Context Configuration Variables",
     "keywords": ["dynamic", "configuration", "context", "variables", "techpromux"],
     "homepage": "https://github.com/TechPromux/TechPromuxDynamicContextConfigurationBundle",
     "license": "GPL-3.0",
