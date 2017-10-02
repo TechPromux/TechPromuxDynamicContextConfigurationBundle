@@ -8,10 +8,9 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use TechPromux\DynamicConfigurationBundle\Entity\ContextVariable;
-use TechPromux\DynamicConfigurationBundle\Manager\DynamicVariableManager;
-use TechPromux\DynamicConfigurationBundle\Manager\ContextVariableManager;
 use TechPromux\DynamicConfigurationBundle\Type\Variable\BaseVariableType;
 use TechPromux\BaseBundle\Admin\Resource\BaseResourceAdmin;
+use TechPromux\DynamicContextConfigurationBundle\Manager\ContextVariableManager;
 
 class ContextVariableAdmin extends BaseResourceAdmin
 {
@@ -49,7 +48,12 @@ class ContextVariableAdmin extends BaseResourceAdmin
         parent::configureDatagridFilters($datagridMapper);
         $datagridMapper
             ->add('variable.name', null, array())
-            ->add('variable.description', null, array())
+            ->add('variable.title', null, array())
+            ->add('variable.type', null, array(), 'choice', array(
+                'choices' => $this->getResourceManager()->getUtilDynamicConfigurationManager()->getVariableTypesChoices(),
+                'translation_domain' => $this->getResourceManager()->getUtilDynamicConfigurationManager()->getBundleName()
+            ))
+            //->add('variable.description', null, array())
             ->add('value');
     }
 
@@ -58,18 +62,18 @@ class ContextVariableAdmin extends BaseResourceAdmin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
-
         $this->getResourceManager()->synchronizeContextVariablesFromAuthenticatedUser();
 
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {
-            $listMapper->addIdentifier('variable.name', null, array());
+            $listMapper->add('variable.name', null, array());
             $listMapper->add('variable.title', null, array());
         } else {
-            $listMapper->addIdentifier('variable.title', null, array());
+            $listMapper->add('variable.title', null, array());
         }
         $listMapper->add('variable.type', 'choice', array(
-            'choices' => $this->getResourceManager()->getUtilDynamicConfigurationManager()->getVariableTypesChoices()
+            'choices' => $this->getResourceManager()->getUtilDynamicConfigurationManager()->getVariableTypesChoices(true),
         ));
+
         $listMapper->add('printableValue', 'html', array(
             //'label' => 'Value',
             'width' => '65',
@@ -80,7 +84,7 @@ class ContextVariableAdmin extends BaseResourceAdmin
         parent::configureListFields($listMapper);
 
         $listMapper->add('_action', 'actions', array(
-            'label' => ('Actions'),
+            //'label' => ('Actions'),
             'row_align' => 'right',
             'header_style' => 'width: 90px',
             'actions' => array(
@@ -106,12 +110,17 @@ class ContextVariableAdmin extends BaseResourceAdmin
         $this->getResourceManager()->getUtilDynamicConfigurationManager()->transformValueToCustom($object);
 
         $formMapper
-            ->with('Var Definition', array('class' => 'col-md-4'));
+            ->with('form.group.definition.label', array('class' => 'col-md-4'));
 
-        $formMapper->add('variable.description', null, array('label' => 'Description',
+        $formMapper->add('variable.title', null, array(
             //'mapped' => false,
             'disabled' => true,
-        ))
+        ));
+        $formMapper->add('variable.description', null, array(
+            //'mapped' => false,
+            'disabled' => true,
+        ));
+        $formMapper
             ->add('reset_value', 'sonata_type_choice_field_mask', array(
                 //'label' => 'Custom Value or Reset Value to Default',
                 //'empty_data' => '0',
@@ -129,7 +138,7 @@ class ContextVariableAdmin extends BaseResourceAdmin
             ))
             ->end();
 
-        $formMapper->with('Value Options', array('class' => 'col-md-8'));
+        $formMapper->with('form.group.value.label', array('class' => 'col-md-8'));
 
         $field_options_type = $this->getResourceManager()->getUtilDynamicConfigurationManager()->getVariableTypeById($object->getVariable()->getType());
         /** @var $field_options_type BaseVariableType */
@@ -160,11 +169,12 @@ class ContextVariableAdmin extends BaseResourceAdmin
         $formData = $request->get($request->get('uniqid'));
 
         if ('1' == $formData['reset_value']) {
-            //$object->setCustomValue($object->getVariable()->getCustomValue());
+            $object->setCustomValue($object->getVariable()->getCustomValue());
             $object->setValue($object->getVariable()->getValue());
             $object->setMedia($object->getVariable()->getMedia());
-            //$this->getResourceManager()->getUtilDynamicConfigurationManager()->transformCustomToValue($object);
         }
+
+        $this->getResourceManager()->getUtilDynamicConfigurationManager()->transformCustomToValue($object);
 
         parent::preUpdate($object);
 

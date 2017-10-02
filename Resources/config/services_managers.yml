@@ -9,6 +9,6 @@ services:
             - { name: techpromux.resource_manager}
         calls:
             #- [ setServiceContainer,['@service_container']]
-            - [ setResourceContextManager,['@techpromux.manager.default_resource_context']]
+            - [ setResourceContextManager,['@techpromux_base.manager.resource_context']]
             - [ setDynamicVariableManager,['@techpromux_dynamic_configuration.manager.dynamic_variable']]
             - [ setUtilDynamicConfigurationManager, ['@techpromux_dynamic_configuration.manager.util_dynamic_configuration']]

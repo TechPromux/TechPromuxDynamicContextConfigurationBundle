@@ -9,7 +9,7 @@ services:
         class:  TechPromux\DynamicContextConfigurationBundle\Admin\ContextVariableAdmin
         arguments: [~,  TechPromux\DynamicContextConfigurationBundle\Entity\ContextVariable, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: techpromux_dynamic_configuration_admin, label: 'Context Variables', show_in_dashboard: true}
+            - { name: sonata.admin, manager_type: orm, group: techpromux_dynamic_configuration_admin, label: sidebar.link_context_variable_list, show_in_dashboard: true}
         calls:
             - [ setTranslationDomain,['TechPromuxDynamicConfigurationBundle']]
             - [ setResourceManager,['@techpromux_dynamic_context_configuration.manager.context_variable']]

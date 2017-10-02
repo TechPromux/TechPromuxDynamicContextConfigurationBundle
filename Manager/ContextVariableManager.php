@@ -4,6 +4,7 @@ namespace TechPromux\DynamicContextConfigurationBundle\Manager;
 
 use TechPromux\BaseBundle\Manager\Resource\BaseResourceManager;
 use TechPromux\DynamicConfigurationBundle\Manager\DynamicVariableManager;
+use TechPromux\DynamicConfigurationBundle\Manager\UtilDynamicConfigurationManager;
 use TechPromux\DynamicContextConfigurationBundle\Entity\ContextVariable;
 
 /**
@@ -77,7 +78,7 @@ class ContextVariableManager extends BaseResourceManager
     protected $util_dynamic_configuration_manager;
 
     /**
-     * @return mixed
+     * @return UtilDynamicConfigurationManager
      */
     public function getUtilDynamicConfigurationManager()
     {
@@ -85,7 +86,7 @@ class ContextVariableManager extends BaseResourceManager
     }
 
     /**
-     * @param mixed $util_dynamic_configuration_manager
+     * @param UtilDynamicConfigurationManager $util_dynamic_configuration_manager
      * @return DynamicVariableManager
      */
     public function setUtilDynamicConfigurationManager($util_dynamic_configuration_manager)
@@ -174,6 +175,5 @@ class ContextVariableManager extends BaseResourceManager
 
         return json_decode($variable->getValue(), true);
     }
-
 
 }
