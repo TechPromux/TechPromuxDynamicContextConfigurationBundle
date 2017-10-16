@@ -7,9 +7,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use TechPromux\DynamicConfigurationBundle\Entity\ContextVariable;
-use TechPromux\DynamicConfigurationBundle\Type\Variable\BaseVariableType;
 use TechPromux\BaseBundle\Admin\Resource\BaseResourceAdmin;
+use TechPromux\DynamicContextConfigurationBundle\Entity\ContextVariable;
 use TechPromux\DynamicContextConfigurationBundle\Manager\ContextVariableManager;
 
 class ContextVariableAdmin extends BaseResourceAdmin
@@ -116,10 +115,10 @@ class ContextVariableAdmin extends BaseResourceAdmin
             //'mapped' => false,
             'disabled' => true,
         ));
-        $formMapper->add('variable.description', null, array(
-            //'mapped' => false,
-            'disabled' => true,
-        ));
+//        $formMapper->add('variable.description', null, array(
+//            //'mapped' => false,
+//            'disabled' => true,
+//        ));
         $formMapper
             ->add('reset_value', 'sonata_type_choice_field_mask', array(
                 //'label' => 'Custom Value or Reset Value to Default',
@@ -135,6 +134,7 @@ class ContextVariableAdmin extends BaseResourceAdmin
                 ),
                 //'empty_value' => 'Choose an option',
                 'required' => true,
+                'translation_domain'=>$this->getResourceManager()->getDynamicVariableManager()->getBundleName()
             ))
             ->end();
 
@@ -163,6 +163,9 @@ class ContextVariableAdmin extends BaseResourceAdmin
         $formMapper->end();
     }
 
+    /**
+     * @param ContextVariable $object
+     */
     public function preUpdate($object)
     {
         $request = $this->getRequest();
@@ -181,9 +184,13 @@ class ContextVariableAdmin extends BaseResourceAdmin
 
     }
 
+    /**
+     * @param ContextVariable $object
+     * @return mixed
+     */
     public function toString($object)
     {
-        return $object->getVariable()->getName();
+        return $object->getVariable()->getTitle();
     }
 
     public function getTemplate($name)
